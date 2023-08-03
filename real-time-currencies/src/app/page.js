@@ -5,15 +5,15 @@ import { useState, useEffect } from 'react'
 import { resolve } from 'styled-jsx/css';
 
 export default function Home() {
-  const [pokeData, setPokeData] = useState({})
-  const [pokemonImage, setPokemonImage] = useState("")
+  const [stockInfo, setStockInfo] = useState([])
+  
   useEffect(() => {
     async function getInfo() {
       try {
-        const data = await fetch('https://pokeapi.co/api/v2/pokemon/ditto')
-        const jsonData = await data.json()
-        setPokeData(jsonData)
-        setPokemonImage(jsonData.sprites.front_default)
+        const APIKEY = "TBxDsx1YUlUNmatc_OQhkvuyOxYXYydR"
+        const data = await fetch(`https://api.polygon.io/v2/aggs/ticker/AAPL/range/1/minute/2023-08-01/2023-08-02?adjusted=true&sort=asc&limit=120&apiKey=${APIKEY}`)
+        const jsonData = await data.json() 
+        setStockInfo(jsonData.results)
       } catch (error) {
         console.error(error)
       }
@@ -21,6 +21,9 @@ export default function Home() {
     getInfo()
   }, [])
 
+  useEffect(() => {
+    console.log("Hey now I'm in a state", stockInfo)
+  }, [stockInfo])
 
   //
   //  code
@@ -28,14 +31,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <h1>Hello World!</h1>
-      {pokemonImage && pokeData ?
-        <>
-          <img src={pokemonImage} style={{height:'400px'}}/>
-          <p>{pokeData.name}</p>
-        </>
-        :
-        <p></p>
-      }
+        
 
     </main>
   )
