@@ -3,6 +3,7 @@ import Image from 'next/image'
 import styles from './page.module.css'
 import { useState, useEffect } from 'react'
 import { resolve } from 'styled-jsx/css';
+import LineChart from './components/LineChart';
 
 export default function Home() {
   const [stockInfo, setStockInfo] = useState([])
@@ -30,7 +31,7 @@ export default function Home() {
   //
   return (
     <main className={styles.main}>
-      <h1>Hello World!</h1>
+      <LineChart />
         
 
     </main>
