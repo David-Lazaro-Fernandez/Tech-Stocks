@@ -20,7 +20,7 @@ export default function Home() {
     series: [
       {
         name: "series-1",
-        data: [30, 40, 45, 50, 49, 60, 70, 91,12,11]
+        data: [30, 40, 45, 50, 49, 60, 70, 91, 12, 11]
       }
     ]
   })
@@ -42,27 +42,49 @@ export default function Home() {
   }, [])
 
   useEffect(() => {
-    const fillChart = (number) => {
-      for (let i = 0; i < number; i++) {
-        stockInfo[i].t ? console.log(stockInfo[i]) : null
-        //options.options.xaxis.categories.append(setCategorie(stockInfo[i].t))
-      }
+    const fillChart = () => {
+      const optionsCopy = { ...options }; // Create a copy of the options state
+      const categoriesCopy = [...optionsCopy.options.xaxis.categories]; // Create a copy of the categories array
+
+
+
+
+
+      stockInfo ?
+        stockInfo.slice(0, 10).map(item => {
+          console.log(item)
+          categoriesCopy.push(setCategorie(item.t))
+
+        })
+        : null
+
+      console.log(categoriesCopy)
+      optionsCopy.options.xaxis.categories = categoriesCopy;
+      setOptions(optionsCopy)
     }
     const setCategorie = (timestamp) => {
-      date = new Date(timestamp)
-      return date
+      const date = new Date(timestamp)
+      const time = `${date.getHours()}:${date.getMinutes()}`
+      return time
     }
 
-    fillChart(10)
+    fillChart()
     console.log("Hey now I'm in a state", stockInfo)
   }, [stockInfo])
 
+  useEffect(() => console.log(options), [options])
   //
   //  code
   //
   return (
     <main className={styles.main}>
-      <LineChart stockInfo={stockInfo} options={options}/>
+      {
+        options.options.xaxis.categories.length == 10 ?
+          <LineChart stockInfo={stockInfo} options={options} />
+          :
+          null
+      }
+
 
 
     </main>
