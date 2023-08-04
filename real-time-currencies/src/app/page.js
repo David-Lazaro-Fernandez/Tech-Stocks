@@ -20,7 +20,7 @@ export default function Home() {
     series: [
       {
         name: "series-1",
-        data: [30, 40, 45, 50, 49, 60, 70, 91, 12, 11]
+        data: []
       }
     ]
   })
@@ -45,7 +45,7 @@ export default function Home() {
     const fillChart = () => {
       const optionsCopy = { ...options }; // Create a copy of the options state
       const categoriesCopy = [...optionsCopy.options.xaxis.categories]; // Create a copy of the categories array
-
+      const seriesCopy = [...optionsCopy.series[0].data];
 
 
 
@@ -54,12 +54,14 @@ export default function Home() {
         stockInfo.slice(0, 10).map(item => {
           console.log(item)
           categoriesCopy.push(setCategorie(item.t))
-
+          seriesCopy.push(item.c)
         })
         : null
 
       console.log(categoriesCopy)
+      console.log(seriesCopy)
       optionsCopy.options.xaxis.categories = categoriesCopy;
+      optionsCopy.series[0].data = seriesCopy
       setOptions(optionsCopy)
     }
     const setCategorie = (timestamp) => {
@@ -79,7 +81,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       {
-        options.options.xaxis.categories.length == 10 ?
+        options.options.xaxis.categories.length == 10  ?
           <LineChart stockInfo={stockInfo} options={options} />
           :
           null
