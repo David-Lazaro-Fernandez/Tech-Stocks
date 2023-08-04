@@ -12,7 +12,7 @@ export const LineChart = (props) =>{
                 options={options.options}
                 series={options.series}
                 height="500"
-                width="500"
+                width="1000"
             />
         </>
     )

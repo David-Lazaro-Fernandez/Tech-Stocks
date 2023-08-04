@@ -6,6 +6,8 @@ import { resolve } from 'styled-jsx/css';
 import LineChart from './components/LineChart';
 
 export default function Home() {
+  const [n, setN] = useState(100)
+  const [stonks, setStonks] = useState("")
   const [stockInfo, setStockInfo] = useState([])
 
   const [options, setOptions] = useState({
@@ -51,7 +53,7 @@ export default function Home() {
 
 
       stockInfo ?
-        stockInfo.slice(0, 10).map(item => {
+        stockInfo.slice(0, n).map(item => {
           console.log(item)
           categoriesCopy.push(setCategorie(item.t))
           seriesCopy.push(item.c)
@@ -74,15 +76,37 @@ export default function Home() {
     console.log("Hey now I'm in a state", stockInfo)
   }, [stockInfo])
 
-  useEffect(() => console.log(options), [options])
+  // useEffect(() =>{
+  //   const calculateStonks = () => {
+  //     options.series[0][0] > options.series[0][series[0].length-1] ? 
+  //       setStonks("/notstonks.png")
+  //       :
+  //       setStonks("wallpaper.png")
+  //   }
+  //   calculateStonks()
+  // }, [options])
   //
   //  code
   //
   return (
     <main className={styles.main}>
+      <div className={styles.companies}>
+        <button className={styles.stockButton}> <img src="/apple.png" />  </button>
+        <button className={styles.stockButton}> <img src="/google.png" /> </button>
+        <button className={styles.stockButton}> <img src="/microsoft.png" /> </button>
+      </div>
       {
-        options.options.xaxis.categories.length == 10  ?
-          <LineChart stockInfo={stockInfo} options={options} />
+        options.options.xaxis.categories.length >= n ?
+          <div className={styles.container}>
+            {console.log(options.series[0], options.series[0].data[n - 1])}
+            {options.series[0].data[0] > options.series[0].data[n - 1] ?
+              <img src="/notstonks.png" className={styles.stonks} />
+              :
+              <img src="/wallpaper.png" className={styles.stonks} />
+            }
+
+            <LineChart stockInfo={stockInfo} options={options} />
+          </div>
           :
           null
       }
