@@ -13,26 +13,45 @@
   justify-content: center;
 }
 .stockButton{
-  width: 100px;
-  height: 100px; 
-  border: solid white 2px;
+  width: 130px;
+  height: 40px; 
+  border: solid white 3px;
   border-radius: 10px;
   background-color: black;
   display: flex;
   justify-content: center;
+  gap:10px;
   align-items: center;
   margin: 0px 10px 0px 10px;
+  padding:10px;
+  transition: 0.3s;
 }
 
-.stockButton :hover{
-  background-color: rgb(92, 92, 92);
+.stockButton:hover{
+  background-color: rgb(92, 92, 92) !important;
   cursor: pointer;
 }
 
 .stockButton img{
-  width: 50px;
-  height: 50px; 
+  width: 25px;
+  height: 25px; 
   filter: invert(98%) sepia(0%) saturate(109%) hue-rotate(89deg) brightness(118%) contrast(100%);
+}
+
+.symbol{
+  text-align: left;
+  color: #fff;
+  width: 930px;
+  margin: 0px 0px 5px 0px;
+  font-weight: 600;
+}
+
+.symbol_name{
+  text-align: left;
+  color: #fff;
+  width: 930px;
+  margin: 40px 0px 20px 0px;
+  font-weight: 300 !important;
 }
 
 .container{
@@ -40,13 +59,16 @@
 }
 
 .stonks {
-  border:solid white 3px;
+  border: solid white 3px;
   border-radius: 100px;
-  width: 200px;
-  height: 150px;
-  position:absolute; 
-  top: 0px;
-  left: 0px;
+  width: 100px;
+  height: 50px;
+  position: absolute;
+  top: 20px;
+  left: 33px;
+  object-fit: cover;
+  object-position: top;
+  z-index: 1;
 }
 .description {
   display: inherit;

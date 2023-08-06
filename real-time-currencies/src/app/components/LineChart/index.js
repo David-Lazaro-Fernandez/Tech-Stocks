@@ -8,7 +8,7 @@ export const LineChart = (props) =>{
     return (
         <>
             <Chart 
-                type="line"
+                type="area"
                 options={options.options}
                 series={series}
                 height="500"
