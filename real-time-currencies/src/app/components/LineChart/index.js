@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Chart from "react-apexcharts";
 export const LineChart = (props) =>{
-    const {options} = props;
+    const {options, series} = props;
     
 
 
@@ -10,7 +10,7 @@ export const LineChart = (props) =>{
             <Chart 
                 type="line"
                 options={options.options}
-                series={options.series}
+                series={series}
                 height="500"
                 width="1000"
             />
