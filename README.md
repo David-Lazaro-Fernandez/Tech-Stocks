@@ -45,3 +45,8 @@ If you would like to contribute to the project, please open an Issue or a Pull R
 ## License
 
 This project is licensed under the MIT License
+
+
+## GHW
+This project was part of the Data Visualization Apps in the Global Hack Week Data
+![image](https://github.com/David-Lazaro-Fernandez/Tech-Stocks/assets/57787993/52b7e6da-aa73-4ebb-914d-ea22df58acd4)
