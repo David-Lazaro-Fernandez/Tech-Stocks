@@ -1,8 +1,8 @@
 import { useState } from "react";
-import Chart from "react-apexcharts";
+import dynamic from "next/dynamic";
 export const LineChart = (props) =>{
     const {options, series} = props;
-    
+    const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 
     return (

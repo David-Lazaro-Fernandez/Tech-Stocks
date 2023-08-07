@@ -15,6 +15,7 @@ const stockURLs = {
 
 export default function Home() {
 
+  const [showSkeleton, setShowSkeleton] = useState(false)
   const [currentStock, setCurrentStock] = useState('APPL')
   const [n, setN] = useState(100)
   const [stonks, setStonks] = useState("")
@@ -28,7 +29,7 @@ export default function Home() {
   const options = useMemo(() => ({
     options: {
       chart: { id: "basic-bar", type: 'area' },
-      xaxis: { categories: categories },
+      xaxis: { categories: categories, max: 50 },
       fill: {
         type: 'gradient',
         gradient: {
@@ -57,21 +58,27 @@ export default function Home() {
     const seriesCopy = [];
     stockInfo.slice(0, n).forEach(item => {
       const date = new Date(item.t);
-      const time = `${date.getHours()}:${date.getMinutes()}`;
+      const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      const month = monthNames[date.getMonth()];
+      const day = date.getDate();
+      const hours = date.getHours();
+      const minutes = String(date.getMinutes()).padStart(2, '0'); // Asegurarse de que los minutos estén en formato de dos dígitos
+      const time = `${month} ${day} ${hours}:${minutes}`;
       categoriesCopy.push(time);
       seriesCopy.push(item.c);
     });
-    setCategories(categoriesCopy);
+    setCategories(categoriesCopy.slice(0, n / 2));
     setSeries([{ name: 'A', data: seriesCopy }]);
   }, [stockInfo, n]);
 
   useEffect(() => {
     fetchStockInfo();
-  }, [fetchStockInfo]);
+  }, [currentStock]); // Dependiendo de currentStock en lugar de fetchStockInfo
 
   useEffect(() => {
     updateChart();
-  }, [updateChart]);
+  }, [stockInfo, n]); // Dependiendo de stockInfo y n en lugar de updateChart
+
 
   useEffect(() => {
     console.log(series, options);
@@ -81,6 +88,11 @@ export default function Home() {
   const handleClick = (symb) => {
     setCurrentStock(symb)
     console.log(symb)
+    setShowSkeleton(true);
+
+    setTimeout(() => {
+      setShowSkeleton(false);
+    }, 1000);
   }
   return (
     <main className={styles.main}>
@@ -89,56 +101,61 @@ export default function Home() {
           onClick={() => handleClick('APPL')}
           className={styles.stockButton}
         >
-          <img src="/apple.png" />
+          <Image alt="apple logo" src="/apple.png" width={25} height={25} />
           <p>APPL</p>
         </button>
         <button
           onClick={() => handleClick('GOOGL')}
           className={styles.stockButton}
         >
-          <img src="/google.png" />
+          <Image alt="google logo" src="/google.png" width={25} height={25} />
           <p>GOOGL</p>
         </button>
         <button
           onClick={() => handleClick('MSFT')}
           className={styles.stockButton}
         >
-          <img src="/microsoft.png" />
+          <Image alt="Microsoft Logo" src="/microsoft.png" width={25} height={25} />
           <p>MSFT</p>
         </button>
         <button
           onClick={() => handleClick('META')}
           className={styles.stockButton}
         >
-          <img src="/meta.png" />
+          <Image alt="Meta Logo" src="/meta.png" width={25} height={25} />
           <p>META</p>
         </button>
         <button
           onClick={() => handleClick('AMZN')}
           className={styles.stockButton}
         >
-          <img src="/amazon.png" />
+          <Image alt="Amazon Logo" src="/amazon.png" width={25} height={25} />
           <p>AMZN</p>
         </button>
       </div>
       <h3 className={styles.symbol_name}>{currentStock}</h3>
       {series ? <h1 className={styles.symbol}>{series[0].data[0]} USD</h1> : null}
       {
-        categories && series && series[0].data && series[0].data.length >= n ?
+        showSkeleton ?
           <div className={styles.container}>
-            {series[0].data[0] > series[0].data[n - 1] ?
-              <img src="/notstonks.png" className={styles.stonks} />
-              :
-              <img src="/wallpaper.png" className={styles.stonks} />
-            }
-            <LineChart options={options} series={series} />
+            <div className={styles.card_is_loading}></div>
           </div>
           :
-          console.log("aaaaaaaaa", series[0])
+          categories && series && series[0].data && series[0].data.length >= n ?
+            <div className={styles.container}>
+              {series[0].data[0] > series[0].data[n - 1] ?
+                <Image alt="Not Stonks" src="/notstonks.png" className={styles.stonks} width={100} height={50} />
+                :
+                <Image alt="Stonks" src="/wallpaper.png" className={styles.stonks} width={100} height={50} />
+              }
+              <LineChart options={options} series={series} />
+            </div>
+            :
+            <div className={styles.container}>
+              <div className={styles.card_is_loading}></div>
+
+            </div>
       }
-
-
-
     </main>
   )
 }
