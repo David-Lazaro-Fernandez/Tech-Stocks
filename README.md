@@ -1,4 +1,4 @@
-# GHW August Data: Tech Stock Tracker
+# GHW Data: Tech Stock Tracker
 ![image](https://github.com/David-Lazaro-Fernandez/Tech-Stocks/assets/57787993/03a90c4a-c86f-407a-848b-f405783389f1)
 
 ## Description
@@ -11,6 +11,8 @@ The Stock Tracker application allows users to view real-time stock data from var
 - **Line Chart**: Stock data is plotted in a line chart, enabling an easy understanding of price trends.
 - **Intuitive Interface**: Users can easily select different companies through buttons with logos, and the app responds by displaying relevant information.
 - **Loading Effect**: The app shows a loading (skeleton) animation while fetching information, enhancing the user experience.
+
+![image](https://github.com/David-Lazaro-Fernandez/Tech-Stocks/assets/57787993/41ee47a8-173f-450c-a8b5-dfc3c8955687)
 
 ## Technologies Used
 
