@@ -1,4 +1,4 @@
-# Tech Stock Tracker
+# GHW August Data:Tech Stock Tracker
 ![image](https://github.com/David-Lazaro-Fernandez/Tech-Stocks/assets/57787993/03a90c4a-c86f-407a-848b-f405783389f1)
 
 ## Description
